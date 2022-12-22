@@ -1,13 +1,24 @@
 package main
 
 import (
-    "flag"
+	"flag"
+	"fmt"
 )
-
 
 // scan traverses a folder given by path and its subfolders
 func scan(path string) {
-    print("scan")
+    fmt.Printf("Found folders:\n\n")
+    repositories := recursiveScanFolder(path)
+    filePath := getDotFilePath()
+    addNewSliceElementsToFile(filePath, repositories)
+    fmt.Printf("\n\nAdded Successfully!\n\n")
+}
+
+
+// recursiveScanFolder starts the recursive search of git repositories
+// in the `path` subtree
+func recursiveScanFolder(path string) []string {
+    return scanGitFolders(make([]string, 0), path)
 }
 
 
